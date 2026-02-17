@@ -1,0 +1,2 @@
+#cover-pc
+#cover-mobile
