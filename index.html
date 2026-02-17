@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>menu</title>
+    <style>
+        /* Reset e Estilo Base */
+        body {
+            background-color: #000000;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-start;
+            font-family: sans-serif;
+            padding-top: 50px;
+        }
+
+        /* Esconder o checkbox que controlará o estado */
+        #menu-toggle {
+            display: none;
+        }
+
+        /* Container da Coluna Lateral (agora um label para funcionar com o checkbox) */
+        .side-column {
+            margin-left: 20px;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding-top: 15px;
+            
+            /* Efeito Vidro Líquido */
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            
+            /* Bordas e Sombras */
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+            
+            cursor: pointer;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Lógica de Expansão via CSS */
+        #menu-toggle:checked + .side-column {
+            height: 280px; /* Aumentado para acomodar o novo ícone de + */
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .side-column:hover {
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* Estilização Geral dos Ícones */
+        .icon {
+            width: 28px;
+            height: 28px;
+            fill: #ffffff;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .gear-icon {
+            margin-bottom: 5px;
+            z-index: 2;
+        }
+
+        /* Animação da engrenagem */
+        .side-column:hover .gear-icon,
+        #menu-toggle:checked + .side-column .gear-icon {
+            transform: rotate(45deg);
+        }
+
+        /* Itens extras que aparecem na expansão */
+        .menu-items {
+            margin-top: 20px;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: all 0.5s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 20px; 
+            pointer-events: none; /* Desativado por padrão para não interferir no clique da engrenagem */
+        }
+
+        /* Estado visível dos itens quando expandido */
+        #menu-toggle:checked + .side-column .menu-items {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto; /* Reativa cliques nos links quando aberto */
+        }
+
+        /* Wrapper para links e ícones */
+        .icon-link {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .icon-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .icon-wrapper:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Checkbox Invisível para controlar o estado -->
+    <input type="checkbox" id="menu-toggle">
+
+    <!-- A coluna lateral -->
+    <label class="side-column" for="menu-toggle">
+        <!-- Ícone de Engrenagem (Abre/Fecha) -->
+        <svg class="icon gear-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/>
+        </svg>
+
+        <div class="menu-items">
+            <!-- Ícone de Casa -->
+            <a href="https://janitorai.com/" class="icon-link" target="_blank" onclick="event.stopPropagation()">
+                <div class="icon-wrapper">
+                    <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                    </svg>
+                </div>
+            </a>
+
+            <!-- Ícone de Lupa -->
+            <a href="https://janitorai.com/search" class="icon-link" target="_blank" onclick="event.stopPropagation()">
+                <div class="icon-wrapper">
+                    <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                    </svg>
+                </div>
+            </a>
+
+            <!-- Ícone de + (Adicionar) -->
+            <a href="https://janitorai.com/create_character" class="icon-link" target="_blank" onclick="event.stopPropagation()">
+                <div class="icon-wrapper">
+                    <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                    </svg>
+                </div>
+            </a>
+        </div>
+    </label>
+
+</body>
+</html>
